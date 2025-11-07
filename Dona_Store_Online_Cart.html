@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dona Store Online</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background-color: #fff0f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+        
+        header {
+            background-color: #ffb6c1;
+            padding: 15px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .welcome-text {
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+            background: white;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        h2 {
+            color: #e75480;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        .card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        input.qty {
+            width: 60px;
+            padding: 8px;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        
+        button.add-btn, button.delete-btn {
+            margin-top: 10px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            width: 100%;
+        }
+        
+        button.add-btn {
+            background-color: #ff69b4;
+        }
+        
+        button.add-btn:hover {
+            background-color: #ff1493;
+        }
+        
+        button.delete-btn {
+            background-color: #d9534f;
+            padding: 8px 15px;
+            width: auto;
+        }
+        
+        button.delete-btn:hover {
+            background-color: #c9302c;
+        }
+        
+        /* سلة المشتريات للجوال */
+        .cart-container {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: #fff;
+            border-top: 3px solid #ff69b4;
+            padding: 15px;
+            max-height: 60vh;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .cart-container.active {
+            display: block;
+        }
+        
+        .cart-container h3 {
+            margin-top: 0;
+            color: #e75480;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .cart-item p {
+            margin: 0;
+            font-size: 14px;
+            flex: 1;
+        }
+        
+        .cart-item button {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        
+        #sendOrder {
+            background-color: #25D366;
+            margin-top: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 15px;
+            font-size: 16px;
+        }
+        
+        #sendOrder:hover {
+            background-color: #1ebc5b;
+        }
+        
+        .special-offer {
+            border: 2px solid #ff69b4;
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff69b4;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .old-price {
+            color: #d9534f;
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+        
+        /* زر فتح السلة للجوال */
+        .cart-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #ff69b4;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff0000;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* إغلاق السلة */
+        .close-cart {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #e75480;
+            cursor: pointer;
+        }
+        
+        /* وسائط متجاوبة */
+        @media (max-width: 768px) {
+            header {
+                font-size: 20px;
+                padding: 12px;
+            }
+            
+            .container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 12px;
+                padding: 12px;
+            }
+            
+            .card {
+                padding: 12px;
+            }
+            
+            h2 {
+                font-size: 16px;
+            }
+            
+            .card p {
+                font-size: 13px;
+            }
+            
+            button.add-btn {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            header {
+                font-size: 18px;
+            }
+            
+            .welcome-text {
+                font-size: 14px;
+                margin: 8px;
+            }
+            
+            .cart-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .cart-count {
+                width: 20px;
+                height: 20px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>Dona Store Online</header>
+<div class="welcome-text">مرحبا بيكي في متجر دونا - منتجات تجميل أصلية 💄</div>
+
+<div class="container">
+    <!-- المنتجات تبقى كما هي -->
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400" alt="روج مطفي فاخر">
+        <h2>روج مطفي فاخر</h2>
+        <p>السعر: 120 E£</p>
+        <input type="number" class="qty" min="1" value="1">
+        <button class="add-btn" onclick="addToCart('روج مطفي فاخر',120,this.previousElementSibling.value)">أضف للسلة</button>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400" alt="ماسكارا ضد الماء">
+        <h2>ماسكارا ضد الماء</h2>
+        <p>السعر: 180 E£</p>
+        <input type="number" class="qty" min="1" value="1">
+        <button class="add-btn" onclick="addToCart('ماسكارا ضد الماء',180,this.previousElementSibling.value)">أضف للسلة</button>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400" alt="فاونديشن كريمي">
+        <h2>فاونديشن كريمي</h2>
+        <p>السعر: 250 E£</p>
+        <input type="number" class="qty" min="1" value="1">
+        <button class="add-btn" onclick="addToCart('فاونديشن كريمي',250,this.previousElementSibling.value)">أضف للسلة</button>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1512496015859-f55b646b6d36?w=400" alt="فرش مكياج فاخرة">
+        <h2>فرش مكياج فاخرة</h2>
+        <p>السعر: 300 E£</p>
+        <input type="number" class="qty" min="1" value="1">
+        <button class="add-btn" onclick="addToCart('فرش مكياج فاخرة',300,this.previousElementSibling.value)">أضف للسلة</button>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1608248548803-70e0baf5ecfc?w=400" alt="طلاء أظافر لامع">
+        <h2>طلاء أظافر لامع</h2>
+        <p>السعر: 90 E£</p>
+        <input type="number" class="qty" min="1" value="1">
+        <button class="add-btn" onclick="addToCart('طلاء أظافر لامع',90,this.previousElementSibling.value)">أضف للسلة</button>
+    </div>
+
+    <!-- المنتج الجديد - طقم ثلاجة -->
+    <div class="card special-offer">
+        <div class="offer-badge">عرض خاص 🔥</div>
+        <img src="https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400" alt="طقم ثلاجة 3 قطع">
+        <h2>طقم ثلاجة 3 قطع</h2>
+        <p>سعة 1400 مل - يدخل الميكروويف وغسالة الأطباق</p>
+        <p style="color:#e75480;font-weight:bold;font-size:20px;">السعر: 90 E£</p>
+        <p class="old-price">السعر الأصلي: 120 E£</p>
+        <input type="number" class="qty" min="1" value="1">
+        <button class="add-btn" onclick="addToCart('طقم ثلاجة 3 قطع - عرض خاص',90,this.previousElementSibling.value)">أضف للسلة</button>
+    </div>
+</div>
+
+<!-- زر فتح السلة للجوال -->
+<button class="cart-toggle" onclick="toggleCart()">
+    🛒
+    <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- سلة المشتريات للجوال -->
+<div class="cart-container" id="cartContainer">
+    <button class="close-cart" onclick="toggleCart()">×</button>
+    <h3>سلة المشتريات</h3>
+    <div id="cartItems"></div>
+    <p id="totalPrice">الإجمالي: 0 E£</p>
+    <button id="sendOrder" onclick="sendOrder()">إرسال الطلب على واتساب</button>
+</div>
+
+<script>
+    let cart = [];
+    
+    function addToCart(name, price, qty) {
+        qty = parseInt(qty);
+        let found = cart.find(item => item.name === name);
+        if (found) {
+            found.qty += qty;
+        } else {
+            cart.push({ name: name, price: price, qty: qty });
+        }
+        renderCart();
+        // إظهار السلة تلقائياً عند إضافة منتج
+        if (!document.getElementById('cartContainer').classList.contains('active')) {
+            toggleCart();
+        }
+    }
+    
+    function deleteItem(index) {
+        if (confirm('هل تريد حذف هذا المنتج من السلة؟')) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+    }
+    
+    function renderCart() {
+        let cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = '';
+        let total = 0;
+        let totalItems = 0;
+        
+        cart.forEach((item, index) => {
+            total += item.price * item.qty;
+            totalItems += item.qty;
+            cartItems.innerHTML += `
+                <div class="cart-item">
+                    <p>${item.name} - ${item.price} E£ × ${item.qty}</p>
+                    <button class="delete-btn" onclick="deleteItem(${index})">حذف</button>
+                </div>`;
+        });
+        
+        document.getElementById('totalPrice').innerText = 'الإجمالي: ' + total + ' E£';
+        document.getElementById('cartCount').textContent = totalItems;
+        
+        // إخفاء عداد السلة إذا كانت فارغة
+        if (totalItems === 0) {
+            document.getElementById('cartCount').style.display = 'none';
+        } else {
+            document.getElementById('cartCount').style.display = 'flex';
+        }
+    }
+    
+    function toggleCart() {
+        const cartContainer = document.getElementById('cartContainer');
+        cartContainer.classList.toggle('active');
+    }
+    
+    function sendOrder() {
+        if (cart.length == 0) {
+            alert('السلة فارغة! أضف بعض المنتجات أولاً');
+            return;
+        }
+        
+        let message = '🛍️ طلب جديد من Dona Store%0A%0A';
+        let total = 0;
+        
+        cart.forEach(item => {
+            message += `📦 ${item.name}%0A`;
+            message += `   الكمية: ${item.qty}%0A`;
+            message += `   السعر: ${item.price * item.qty} E£%0A%0A`;
+            total += item.price * item.qty;
+        });
+        
+        message += `💰 الإجمالي: ${total} E£%0A%0A`;
+        message += 'شكراً لطلبك من دونا ستور! 💄';
+        
+        window.open('https://wa.me/201117505579?text=' + message, '_blank');
+    }
+    
+    // إغلاق السلة عند النقر خارجها
+    document.addEventListener('click', function(event) {
+        const cartContainer = document.getElementById('cartContainer');
+        const cartToggle = document.querySelector('.cart-toggle');
+        
+        if (cartContainer.classList.contains('active') && 
+            !cartContainer.contains(event.target) && 
+            !cartToggle.contains(event.target)) {
+            toggleCart();
+        }
+    });
+</script>
+
+</body>
+</html>
