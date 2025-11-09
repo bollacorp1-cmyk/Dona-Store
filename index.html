@@ -3,498 +3,958 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dona Store Online</title>
+    <title>Dona Store - متجر المكياج والأدوات المنزلية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: 'Tahoma', sans-serif;
-            background-color: #fff0f5;
+            background-color: #f9f9f9;
             color: #333;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 80px;
+            line-height: 1.6;
         }
         
         header {
-            background-color: #ffb6c1;
-            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 100;
         }
         
-        .welcome-text {
-            text-align: center;
-            font-size: 16px;
-            padding: 10px;
-            background: white;
-            margin: 10px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            padding: 15px;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        
-        h2 {
-            color: #e75480;
-            font-size: 18px;
-            margin: 10px 0;
-        }
-        
-        .card p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-        
-        input.qty {
-            width: 60px;
-            padding: 8px;
-            margin-top: 5px;
-            text-align: center;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-        
-        button.add-btn, button.delete-btn {
-            margin-top: 10px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
+        .logo {
+            font-size: 1.8rem;
             font-weight: bold;
-            font-size: 14px;
-            width: 100%;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
         }
         
-        button.add-btn {
-            background-color: #ff69b4;
+        .logo i {
+            margin-left: 10px;
         }
         
-        button.add-btn:hover {
-            background-color: #ff1493;
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
-        button.delete-btn {
-            background-color: #d9534f;
-            padding: 8px 15px;
-            width: auto;
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
         }
         
-        button.delete-btn:hover {
-            background-color: #c9302c;
-        }
-        
-        /* سلة المشتريات للجوال */
-        .cart-container {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            background: #fff;
-            border-top: 3px solid #ff69b4;
-            padding: 15px;
-            max-height: 60vh;
-            overflow-y: auto;
-            z-index: 1000;
+        .mobile-back-btn {
             display: none;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 1rem;
         }
         
-        .cart-container.active {
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .feature {
+            text-align: center;
+            max-width: 300px;
+        }
+        
+        .feature i {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .products-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #ff6b6b;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .product-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            min-height: 3rem;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        
+        .add-to-cart {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            margin-top: auto;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #ff5252;
+        }
+        
+        /* صفحة تفاصيل المنتج */
+        .product-detail-page {
+            display: none;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .product-detail-container {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-detail-image {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .product-detail-image img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
             display: block;
         }
         
-        .cart-container h3 {
-            margin-top: 0;
-            color: #e75480;
-            text-align: center;
-            font-size: 20px;
+        .product-detail-info {
+            flex: 1;
+            padding: 2rem;
+            min-width: 300px;
+        }
+        
+        .back-to-products {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-to-products:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .back-to-products i {
+            margin-right: 5px;
+        }
+        
+        .product-detail-name {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .product-detail-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-detail-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            white-space: pre-line;
+        }
+        
+        .product-detail-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .add-to-cart-detail {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            flex: 2;
+            transition: background-color 0.3s ease;
+        }
+        
+        .add-to-cart-detail:hover {
+            background-color: #ff5252;
+        }
+        
+        .buy-now {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            flex: 1;
+            transition: background-color 0.3s ease;
+        }
+        
+        .buy-now:hover {
+            background-color: #555;
+        }
+        
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-content {
+            background-color: white;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .close-cart {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            background: none;
+            border: none;
+        }
+        
+        .cart-items {
+            margin: 1.5rem 0;
         }
         
         .cart-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
             align-items: center;
-            padding: 8px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
         }
         
-        .cart-item p {
-            margin: 0;
-            font-size: 14px;
-            flex: 1;
+        .cart-item-info {
+            flex-grow: 1;
         }
         
-        .cart-item button {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-        
-        #sendOrder {
-            background-color: #25D366;
-            margin-top: 10px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            color: white;
+        .cart-item-name {
             font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+        
+        .cart-item-price {
+            color: #ff6b6b;
+        }
+        
+        .remove-item {
+            color: #ff4757;
             cursor: pointer;
-            padding: 15px;
-            font-size: 16px;
-        }
-        
-        #sendOrder:hover {
-            background-color: #1ebc5b;
-        }
-        
-        .special-offer {
-            border: 2px solid #ff69b4;
-        }
-        
-        .offer-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff69b4;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-            z-index: 1;
-        }
-        
-        .old-price {
-            color: #d9534f;
-            text-decoration: line-through;
-            font-size: 14px;
-        }
-        
-        /* زر فتح السلة للجوال */
-        .cart-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: #ff69b4;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff0000;
-            color: white;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* إغلاق السلة */
-        .close-cart {
-            position: absolute;
-            top: 10px;
-            left: 15px;
             background: none;
             border: none;
-            font-size: 24px;
-            color: #e75480;
-            cursor: pointer;
+            font-size: 1.2rem;
         }
         
-        /* وسائط متجاوبة */
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+            color: #333;
+        }
+        
+        .shipping-cost {
+            font-size: 1.1rem;
+            text-align: center;
+            margin: 0.5rem 0;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 0.5rem;
+        }
+        
+        .final-total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+            color: #ff6b6b;
+            border-top: 2px solid #ff6b6b;
+            padding-top: 1rem;
+        }
+        
+        .send-order {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .send-order i {
+            margin-left: 8px;
+        }
+        
+        .send-order:hover {
+            background-color: #128C7E;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-section {
+            margin: 1rem;
+            max-width: 300px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ff6b6b;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #555;
+        }
+        
+        /* تحسينات للعرض على الشاشات المختلفة */
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
         @media (max-width: 768px) {
-            header {
-                font-size: 20px;
-                padding: 12px;
+            .mobile-back-btn {
+                display: block;
             }
             
-            .container {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 12px;
-                padding: 12px;
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             
-            .card {
-                padding: 12px;
+            .features {
+                flex-direction: column;
+                align-items: center;
             }
             
-            h2 {
-                font-size: 16px;
+            .feature {
+                margin-bottom: 1.5rem;
             }
             
-            .card p {
-                font-size: 13px;
+            .hero h1 {
+                font-size: 2rem;
             }
             
-            button.add-btn {
-                padding: 10px 15px;
-                font-size: 13px;
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .product-detail-container {
+                flex-direction: column;
+            }
+            
+            .product-detail-image {
+                max-width: 100%;
+            }
+            
+            .product-detail-actions {
+                flex-direction: column;
             }
         }
         
         @media (max-width: 480px) {
-            .container {
+            .products-grid {
                 grid-template-columns: 1fr;
-                gap: 10px;
-                padding: 10px;
             }
             
-            header {
-                font-size: 18px;
-            }
-            
-            .welcome-text {
-                font-size: 14px;
-                margin: 8px;
-            }
-            
-            .cart-toggle {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-                bottom: 15px;
-                left: 15px;
-            }
-            
-            .cart-count {
-                width: 20px;
-                height: 20px;
-                font-size: 12px;
+            .product-card {
+                margin: 0 0.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo" id="logo">
+                <i class="fas fa-store"></i>
+                Dona Store
+            </div>
+            <div style="display: flex; align-items: center;">
+                <button class="mobile-back-btn" id="mobileBackBtn" style="display: none;">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<header>Dona Store Online</header>
-<div class="welcome-text">مرحبا بيكي في متجر دونا - منتجات تجميل أصلية 💄</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>مرحباً بكم في Dona Store</h1>
+        <p>أفضل منتجات المكياج والأدوات المنزلية بأسعار منافسة</p>
+    </section>
 
-<div class="container">
-    <!-- المنتجات تبقى كما هي -->
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400" alt="روج مطفي فاخر">
-        <h2>روج مطفي فاخر</h2>
-        <p>السعر: 120 E£</p>
-        <input type="number" class="qty" min="1" value="1">
-        <button class="add-btn" onclick="addToCart('روج مطفي فاخر',120,this.previousElementSibling.value)">أضف للسلة</button>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-shipping-fast"></i>
+            <h3>شحن لجميع المحافظات</h3>
+            <p>نقوم بالتوصيل لأي مكان في مصر</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-money-bill-wave"></i>
+            <h3>الدفع عند الاستلام</h3>
+            <p>ادفع عند استلام طلبك بسهولة</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-headset"></i>
+            <h3>دعم فني متواصل</h3>
+            <p>نحن هنا لمساعدتك على مدار الساعة</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="productsSection">
+        <h2 class="section-title">منتجاتنا المميزة</h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- المنتجات سيتم إضافتها هنا عبر JavaScript -->
+        </div>
+    </section>
+
+    <!-- Product Detail Page -->
+    <section class="product-detail-page" id="productDetailPage">
+        <div class="product-detail-container">
+            <div class="product-detail-image">
+                <img id="detailProductImage" src="" alt="">
+            </div>
+            <div class="product-detail-info">
+                <button class="back-to-products" id="backToProducts">
+                    <i class="fas fa-arrow-right"></i> العودة إلى المنتجات
+                </button>
+                <h1 class="product-detail-name" id="detailProductName"></h1>
+                <p class="product-detail-price" id="detailProductPrice"></p>
+                <p class="product-detail-description" id="detailProductDescription"></p>
+                <div class="product-detail-actions">
+                    <button class="add-to-cart-detail" id="addToCartDetail">إضافة إلى السلة</button>
+                    <button class="buy-now" id="buyNow">شراء الآن</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <button class="close-cart" id="closeCart">&times;</button>
+            <h2>سلة التسوق</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- عناصر السلة ستظهر هنا -->
+            </div>
+            <div class="cart-total">المجموع: <span id="cartTotal">0</span> جنيهاً</div>
+            <div class="shipping-cost">+ مصاريف الشحن</div>
+            <div class="final-total">الإجمالي النهائي: <span id="finalTotal">0</span> جنيهاً</div>
+            <button class="send-order" id="sendOrder">
+                <i class="fab fa-whatsapp"></i> إرسال الطلب عبر واتساب
+            </button>
+        </div>
     </div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400" alt="ماسكارا ضد الماء">
-        <h2>ماسكارا ضد الماء</h2>
-        <p>السعر: 180 E£</p>
-        <input type="number" class="qty" min="1" value="1">
-        <button class="add-btn" onclick="addToCart('ماسكارا ضد الماء',180,this.previousElementSibling.value)">أضف للسلة</button>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Dona Store</div>
+            <div class="footer-info">
+                <div class="footer-section">
+                    <h3>عن المتجر</h3>
+                    <p>متجر Dona Store يقدم أفضل منتجات المكياج والأدوات المنزلية بجودة عالية وأسعار مناسبة.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>معلومات التواصل</h3>
+                    <p>الهاتف: 201117505579+</p>
+                    <p>البريد الإلكتروني: info@donastore.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>خدماتنا</h3>
+                    <p>شحن لجميع المحافظات</p>
+                    <p>الدفع عند الاستلام</p>
+                    <p>ضمان الجودة</p>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Dona Store. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400" alt="فاونديشن كريمي">
-        <h2>فاونديشن كريمي</h2>
-        <p>السعر: 250 E£</p>
-        <input type="number" class="qty" min="1" value="1">
-        <button class="add-btn" onclick="addToCart('فاونديشن كريمي',250,this.previousElementSibling.value)">أضف للسلة</button>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1512496015859-f55b646b6d36?w=400" alt="فرش مكياج فاخرة">
-        <h2>فرش مكياج فاخرة</h2>
-        <p>السعر: 300 E£</p>
-        <input type="number" class="qty" min="1" value="1">
-        <button class="add-btn" onclick="addToCart('فرش مكياج فاخرة',300,this.previousElementSibling.value)">أضف للسلة</button>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1608248548803-70e0baf5ecfc?w=400" alt="طلاء أظافر لامع">
-        <h2>طلاء أظافر لامع</h2>
-        <p>السعر: 90 E£</p>
-        <input type="number" class="qty" min="1" value="1">
-        <button class="add-btn" onclick="addToCart('طلاء أظافر لامع',90,this.previousElementSibling.value)">أضف للسلة</button>
-    </div>
-
-    <!-- المنتج الجديد - طقم ثلاجة -->
-<div class="card special-offer">
-    <div class="offer-badge">عرض خاص 🔥</div>
-    <img src="https://i.ibb.co/3yw272M9/image.jpg" 
-         alt="طقم ثلاجة 3 قطع" 
-         onclick="window.open('https://i.ibb.co/3yw272M9/image.jpg', '_blank')" 
-         style="cursor: pointer;">
-    <h2>طقم ثلاجة 3 قطع</h2>
-    <p>سعة 1400 مل - يدخل الميكروويف وغسالة الأطباق</p>
-    <p style="color:#e75480;font-weight:bold;font-size:20px;">السعر: 90 E£</p>
-    <p class="old-price">السعر الأصلي: 120 E£</p>
-    <input type="number" class="qty" min="1" value="1">
-    <button class="add-btn" onclick="addToCart('طقم ثلاجة 3 قطع - عرض خاص',90,this.previousElementSibling.value)">أضف للسلة</button>
-</div>
-</div>
-
-<!-- زر فتح السلة للجوال -->
-<button class="cart-toggle" onclick="toggleCart()">
-    🛒
-    <span class="cart-count" id="cartCount">0</span>
-</button>
-
-<!-- سلة المشتريات للجوال -->
-<div class="cart-container" id="cartContainer">
-    <button class="close-cart" onclick="toggleCart()">×</button>
-    <h3>سلة المشتريات</h3>
-    <div id="cartItems"></div>
-    <p id="totalPrice">الإجمالي: 0 E£</p>
-    <button id="sendOrder" onclick="sendOrder()">إرسال الطلب على واتساب</button>
-</div>
-
-<script>
-    let cart = [];
-    
-    function addToCart(name, price, qty) {
-        qty = parseInt(qty);
-        let found = cart.find(item => item.name === name);
-        if (found) {
-            found.qty += qty;
-        } else {
-            cart.push({ name: name, price: price, qty: qty });
-        }
-        renderCart();
-        // إظهار السلة تلقائياً عند إضافة منتج
-        if (!document.getElementById('cartContainer').classList.contains('active')) {
-            toggleCart();
-        }
-    }
-    
-    function deleteItem(index) {
-        if (confirm('هل تريد حذف هذا المنتج من السلة؟')) {
-            cart.splice(index, 1);
-            renderCart();
-        }
-    }
-    
-    function renderCart() {
-        let cartItems = document.getElementById('cartItems');
-        cartItems.innerHTML = '';
-        let total = 0;
-        let totalItems = 0;
-        
-        cart.forEach((item, index) => {
-            total += item.price * item.qty;
-            totalItems += item.qty;
-            cartItems.innerHTML += `
-                <div class="cart-item">
-                    <p>${item.name} - ${item.price} E£ × ${item.qty}</p>
-                    <button class="delete-btn" onclick="deleteItem(${index})">حذف</button>
-                </div>`;
-        });
-        
-        document.getElementById('totalPrice').innerText = 'الإجمالي: ' + total + ' E£';
-        document.getElementById('cartCount').textContent = totalItems;
-        
-        // إخفاء عداد السلة إذا كانت فارغة
-        if (totalItems === 0) {
-            document.getElementById('cartCount').style.display = 'none';
-        } else {
-            document.getElementById('cartCount').style.display = 'flex';
-        }
-    }
-    
-    function toggleCart() {
-        const cartContainer = document.getElementById('cartContainer');
-        cartContainer.classList.toggle('active');
-    }
-    
-    function sendOrder() {
-        if (cart.length == 0) {
-            alert('السلة فارغة! أضف بعض المنتجات أولاً');
-            return;
-        }
-        
-        let message = '🛍️ طلب جديد من Dona Store%0A%0A';
-        let total = 0;
-        
-        cart.forEach(item => {
-            message += `📦 ${item.name}%0A`;
-            message += `   الكمية: ${item.qty}%0A`;
-            message += `   السعر: ${item.price * item.qty} E£%0A%0A`;
-            total += item.price * item.qty;
-        });
-        
-        message += `💰 الإجمالي: ${total} E£%0A%0A`;
-        message += 'شكراً لطلبك من دونا ستور! 💄';
-        
-        window.open('https://wa.me/201117505579?text=' + message, '_blank');
-    }
-    
-    // إغلاق السلة عند النقر خارجها
-    document.addEventListener('click', function(event) {
-        const cartContainer = document.getElementById('cartContainer');
-        const cartToggle = document.querySelector('.cart-toggle');
-        
-        if (cartContainer.classList.contains('active') && 
-            !cartContainer.contains(event.target) && 
-            !cartToggle.contains(event.target)) {
-            toggleCart();
-        }
-    });
-
+    <script>
+        // بيانات المنتجات المحدثة مع المنتجات الجديدة
+        const products = [
+            {
+                id: 1,
+                name: "طقم توابل 12 قطعة",
+                price: 180,
+                image: "https://i.postimg.cc/NfrP91Lk/FB-IMG-1762719907948.jpg",
+                description: "طقم توابل 12 قطعة بسعر ١٨٠ ج وبس جنيه كيتشنز. حلويات بجد 🥰\n\nطقم توابل أنيق وفاخر يتكون من 12 قطعة لتخزين جميع أنواع التوابل والمكونات الجافة. مثالي للمطبخ العصبي.\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام"
+            },
+            {
+                id: 2,
+                name: "كوب شاليموه هو هو",
+                price: 35,
+                image: "https://i.postimg.cc/6qFjbQjk/FB-IMG-1762719944205.jpg",
+                description: "كوب شاليموه هو هو الأصلي بسعر ٣٥ ج\n\nكوب شاليموه الأصلي لتقديم المشروبات الساخنة والباردة بأناقة. يحافظ على درجة حرارة المشروبات لفترات طويلة.\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام"
+            },
+            {
+                id: 3,
+                name: "ماسكارا سيبال 3D",
+                price: 85,
+                image: "https://i.postimg.cc/Fs27rQk2/FB-IMG-1762720013195.jpg",
+                description: "مسكره سيبال 3D 🔥\n\n😍❤\nماسكارا سيبال 3D ماسكارا هنا الزاهد بتنزلها في الاستورى بتاعها😉😙\n👏 طبعا فرق شاسع بعد متحطيها و طبعا ملناش علاقة بالتقليد لانها ملهاش علاقة بالاورجينال\nتحفه بجد كلكم عارفينها وإلى لسة مجربتهاش لازم تكون عندكم 😙😙😙\nأرخص سعر عندنا وبس🙊😙\n\nماسكارا سيبال 3D تعطي رموشك حجم وكثافة ثلاثية الأبعاد مع ثبات طويل المدى.\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام\n\n#سعر 85 ج وبس 🤑"
+            },
+            {
+                id: 4,
+                name: "مج زجاج غطاء شاليموه",
+                price: 60,
+                image: "https://i.postimg.cc/jjT2fQXp/FB-IMG-1762721505719.jpg",
+                description: "مج زجاج غطاء شاليموه محكم بعازل ودلاية جلد بسعر ٦٠ ج\n\nغطاء زجاجي محكم الإغلاق مع عازل حراري ودلاية جلدية أنيقة. يحافظ على حرارة المشروب ويمنع التسرب.\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام"
+            },
+            {
+                id: 5,
+                name: "كوب شاليموه بعازل جلد",
+                price: 40,
+                originalPrice: 55,
+                image: "https://i.postimg.cc/NjmLLP18/FB-IMG-1762721533669.jpg",
+                description: "كوب شاليموه على بعازل جلد بسعر ٤٠ ج بدلا من ٥٥ ج - عرض خاص\n\nكوب شاليموه متميز بعازل جلدي يوفر قبضة مريحة ويحمي اليد من الحرارة. تصميم أنيق وعملي.\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام\n\n🔥 عرض خاص: 40 ج بدلاً من 55 ج"
+            },
+            {
+                id: 6,
+                name: "مبرد قدم خشب",
+                price: 20,
+                image: "https://i.postimg.cc/P5YNNFmK/FB-IMG-1762721669099.jpg",
+                description: "مبرد قدم خشب 🪵\n\nنعومة قدمك تهمك 🦶\nعلشان كده وفرنالك احلي مبرد\nبأقل سعر ب٢٠ ج وبس\n\nمبرد قدم خشبي طبيعي لإزالة الجلد الميت وتنعيم القدمين. آمن وفعال للاستخدام اليومي.\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام"
+            },
+            {
+                id: 7,
+                name: "جهاز مقشر القدم",
+                price: 165,
+                image: "https://i.postimg.cc/0yXT78PN/FB-IMG-1762725051313.jpg",
+                description: "جهاز مقشر القدم 🦶🥰\nجهاز صنفره القدم\n\nالجهاز ده هيصنفر الرجل وينعمها ف ثوانى 😍\n\nكل اللى عليكى تمشي الجهاز لحد الجلد الميت ما يتشال وينعم وبعدها ترطبيها ب اى مرطب قدم او ذبدة الشيا 🙈🙈\n\nسهل الاستخدام ونتيجته سريعه 👌👌\n\nالجهاز ده عباره عن جهاز صنفرة بيشيل كل الجلد الميت اللي ف الرجل 😍\nبيسيب بشره رجليك ناعمه جدا زي رجلين الاطفال🙈🙈\n\nومش هتقدر تستغني عنه تاني👍👍\nالجهاز شحن معاه وصلة 🧨\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام\n\nسعر ١٦٥ج وبس"
+            },
+            {
+                id: 8,
+                name: "مكنة فلولس",
+                price: 125,
+                image: "https://i.postimg.cc/cJKVmVLf/FB-IMG-1762725064682.jpg",
+                description: "مكنة فلولس الاكثر مبيعاً 🌟\nلإزالة شعر الوجه والجسم \nو تحديد الحواجب 👀\n2 in 1 \n\nمع رأسين \n1️⃣ للحواجب\n1️⃣ للوجه والجسم \n\nشحن UBS 🔋\nمع وصلة شارج \nو فرشاية للتنظيف 💕\n\nبدون الم و لا تسبب حساسية \nازالة سريعة خلال 5 ثواني\n\nاحصلي على بشرة احلامك مع هذه الماكنة 😍\n\n✅ شحن لجميع المحافظات\n✅ الدفع عند الاستلام\n\nسعر الجمله ١٢٥ ج"
             }
-</script>
+        ];
 
+        // عناصر DOM
+        const productsGrid = document.getElementById('productsGrid');
+        const productsSection = document.getElementById('productsSection');
+        const productDetailPage = document.getElementById('productDetailPage');
+        const cartModal = document.getElementById('cartModal');
+        const cartIcon = document.getElementById('cartIcon');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const finalTotal = document.getElementById('finalTotal');
+        const sendOrder = document.getElementById('sendOrder');
+        const backToProducts = document.getElementById('backToProducts');
+        const addToCartDetail = document.getElementById('addToCartDetail');
+        const buyNow = document.getElementById('buyNow');
+        const logo = document.getElementById('logo');
+        const mobileBackBtn = document.getElementById('mobileBackBtn');
+
+        // سلة التسوق
+        let cart = [];
+        let currentProduct = null;
+
+        // عرض المنتجات
+        function displayProducts() {
+            productsGrid.innerHTML = '';
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                let priceHTML = `<p class="product-price">${product.price} جنيهاً</p>`;
+                if (product.originalPrice) {
+                    priceHTML = `
+                        <p class="product-price">
+                            <span style="color: #ff6b6b; font-weight: bold;">${product.price} جنيهاً</span>
+                            <span style="text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 0.5rem;">${product.originalPrice} ج</span>
+                        </p>
+                    `;
+                }
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x200?text=صورة+غير+متوفرة'">
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        ${priceHTML}
+                        <button class="add-to-cart" data-id="${product.id}">إضافة إلى السلة</button>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+                
+                // إضافة حدث النقر على المنتج لفتح صفحة التفاصيل
+                productCard.addEventListener('click', () => openProductDetail(product));
+                
+                // إضافة حدث النقر على زر إضافة إلى السلة
+                const addToCartBtn = productCard.querySelector('.add-to-cart');
+                addToCartBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    addToCart(product);
+                });
+            });
+        }
+
+        // فتح صفحة تفاصيل المنتج
+        function openProductDetail(product) {
+            currentProduct = product;
+            document.getElementById('detailProductImage').src = product.image;
+            document.getElementById('detailProductName').textContent = product.name;
+            
+            let priceHTML = `${product.price} جنيهاً`;
+            if (product.originalPrice) {
+                priceHTML = `
+                    <span style="color: #ff6b6b; font-weight: bold;">${product.price} جنيهاً</span>
+                    <span style="text-decoration: line-through; color: #999; font-size: 1.2rem; margin-right: 0.5rem;">${product.originalPrice} ج</span>
+                `;
+            }
+            document.getElementById('detailProductPrice').innerHTML = priceHTML;
+            
+            document.getElementById('detailProductDescription').textContent = product.description;
+            
+            productsSection.style.display = 'none';
+            productDetailPage.style.display = 'block';
+            mobileBackBtn.style.display = 'block';
+            
+            // التمرير لأعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // العودة إلى صفحة المنتجات
+        function backToProductsPage() {
+            productsSection.style.display = 'block';
+            productDetailPage.style.display = 'none';
+            mobileBackBtn.style.display = 'none';
+            currentProduct = null;
+            
+            // التمرير لأعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إضافة منتج إلى السلة
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            updateCart();
+        }
+
+        // تحديث السلة
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} ج × ${item.quantity} = ${itemTotal} ج</div>
+                    </div>
+                    <button class="remove-item" data-id="${item.id}">&times;</button>
+                `;
+                cartItems.appendChild(cartItem);
+                
+                // إضافة حدث إزالة المنتج
+                const removeBtn = cartItem.querySelector('.remove-item');
+                removeBtn.addEventListener('click', () => removeFromCart(item.id));
+            });
+            
+            cartTotal.textContent = total;
+            finalTotal.textContent = total;
+        }
+
+        // إزالة منتج من السلة
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // إرسال الطلب عبر واتساب
+        function sendOrderViaWhatsApp() {
+            if (cart.length === 0) {
+                alert('السلة فارغة. أضف بعض المنتجات أولاً.');
+                return;
+            }
+            
+            let message = 'مرحباً، أريد طلب المنتجات التالية من Dona Store:\n\n';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                message += `- ${item.name} (${item.quantity} × ${item.price} ج) = ${itemTotal} ج\n`;
+            });
+            
+            message += `\nالمجموع: ${total} جنيهاً\n`;
+            message += `+ مصاريف الشحن\n`;
+            message += `الإجمالي النهائي: ${total} جنيهاً\n\n`;
+            message += 'الاسم: \nالعنوان: \nرقم الهاتف: \n\n';
+            message += 'ملاحظات: ';
+            
+            const phoneNumber = '201117505579';
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+
+        // إضافة الأحداث
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProducts();
+            
+            // فتح نافذة السلة
+            cartIcon.addEventListener('click', () => {
+                cartModal.style.display = 'flex';
+            });
+            
+            // إغلاق نافذة السلة
+            closeCart.addEventListener('click', () => {
+                cartModal.style.display = 'none';
+            });
+            
+            // العودة إلى صفحة المنتجات
+            backToProducts.addEventListener('click', backToProductsPage);
+            
+            // النقر على الشعار للعودة للصفحة الرئيسية
+            logo.addEventListener('click', backToProductsPage);
+            
+            // زر الرجوع في الموبايل
+            mobileBackBtn.addEventListener('click', backToProductsPage);
+            
+            // إضافة إلى السلة من صفحة التفاصيل
+            addToCartDetail.addEventListener('click', () => {
+                if (currentProduct) {
+                    addToCart(currentProduct);
+                }
+            });
+            
+            // شراء الآن
+            buyNow.addEventListener('click', () => {
+                if (currentProduct) {
+                    addToCart(currentProduct);
+                    cartModal.style.display = 'flex';
+                }
+            });
+            
+            // إغلاق النوافذ عند النقر خارجها
+            window.addEventListener('click', (e) => {
+                if (e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+            
+            // إرسال الطلب
+            sendOrder.addEventListener('click', sendOrderViaWhatsApp);
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
